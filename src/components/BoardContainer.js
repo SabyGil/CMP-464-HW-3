@@ -3,11 +3,28 @@ import React from 'react'
 import BoardDisplay from './BoardDisplay'
 import Keypad from './Keypad'
 
+/*
+[
+  [b,o,a,r,d],
+  [b,o,a,r,d],
+  [b,o,a,r,d],
+  [b,o,a,r,d],
+  [b,o,a,r,d]
+
+]
+
+*/
+
 class BoardContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      board: [[]],
+      activeRow: 0,
+      targetWord: '',
+    }
   }
+
   render() {
     return (
       <div className='game_container'>

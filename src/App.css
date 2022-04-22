@@ -58,7 +58,7 @@ h6 {
 /* HEADER */
 header {
   display: flex;
-  /* border: 1px solid red; */
+  border: 10px solid red;
 }
 .logo {
   /* justify-content: center;
@@ -76,12 +76,29 @@ header {
 }
 
 .game_container {
-  /* border: 1px solid orange; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border: 5px solid orange;
+  margin: 0 auto;
+  margin: 1rem auto 0 auto;
+  width: 600px;
 }
 
-.board_container {
-  border: 1px solid green;
+.game_container .board_container {
+  /* display: flex; */
+}
+
+.row {
+  display: flex;
+}
+
+.row .board_tile {
+  border: 2px solid rgb(176, 176, 176);
+  width: 100%;
+  height: 5rem;
+  margin: 0.2rem;
+  /* border-radius: 4px; */
+}
+
+.keypad_container {
+  border: 2px solid green;
+  margin-top: 10px;
 }
