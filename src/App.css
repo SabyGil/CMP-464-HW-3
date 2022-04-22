@@ -58,7 +58,7 @@ h6 {
 /* HEADER */
 header {
   display: flex;
-  border: 10px solid red;
+  /* border: 10px solid red; */
 }
 .logo {
   /* justify-content: center;
@@ -76,14 +76,14 @@ header {
 }
 
 .game_container {
-  border: 5px solid orange;
-  margin: 0 auto;
+  /* border: 5px solid orange; */
   margin: 1rem auto 0 auto;
   width: 600px;
 }
 
 .game_container .board_container {
-  /* display: flex; */
+  /* border: 2px solid blue; */
+  padding: 2rem;
 }
 
 .row {
@@ -99,6 +99,40 @@ header {
 }
 
 .keypad_container {
-  border: 2px solid green;
-  margin-top: 10px;
+  /* border: 2px solid green; */
+  /* margin-bottom: 1rem; */
+}
+
+.kb_row {
+  /* border: 2px solid orange; */
+  display: flex;
+  margin: 0 auto 0.5rem;
+  touch-action: manipulation;
+  justify-content: center;
+}
+
+.kb_row.last_row {
+  padding-bottom: 2rem;
+}
+
+.indent {
+  flex: 0.5;
+}
+
+.kb_row button {
+  font-weight: bold;
+  border: 0;
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 58px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  background-color: rgb(227, 224, 224);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: rgba(231, 222, 222, 0.865);
 }

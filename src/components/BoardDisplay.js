@@ -11,19 +11,19 @@ const BoardDisplay = () => {
   return (
     <div className='board_container'>
       <div className='row'>
-        <div className='board_tile'>1</div>
-        <div className='board_tile'>2</div>
-        <div className='board_tile'>3</div>
-        <div className='board_tile'>4</div>
-        <div className='board_tile'>5</div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
       </div>
 
       <div className='row'>
-        <div className='board_tile'>1</div>
-        <div className='board_tile'>2</div>
-        <div className='board_tile'>3</div>
-        <div className='board_tile'>4</div>
-        <div className='board_tile'>5</div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
+        <div className='board_tile'></div>
       </div>
 
       <div className='row'>

@@ -10,9 +10,7 @@ import Keypad from './Keypad'
   [b,o,a,r,d],
   [b,o,a,r,d],
   [b,o,a,r,d]
-
 ]
-
 */
 
 class BoardContainer extends React.Component {
