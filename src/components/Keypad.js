@@ -1,44 +1,217 @@
 import React from 'react'
 
-const Keypad = () => {
+const Keypad = (props) => {
   // boilerplate table header functional component
+  // const handleChange = props.handleChange;
+
+  // MAKE HANDLE CLICK AND HANDLE KEY PRESS FUNCTIONS
   return (
     <div className='keypad_container'>
       <div className='kb_row'>
-        <button data-key='q'>q</button>
-        <button data-key='w'>w</button>
-        <button data-key='e'>e</button>
-        <button data-key='r'>r</button>
-        <button data-key='t'>t</button>
-        <button data-key='y'>y</button>
-        <button data-key='u'>u</button>
-        <button data-key='i'>i</button>
-        <button data-key='o'>o</button>
-        <button data-key='p'>p</button>
+        <button
+          data-key='q'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          q
+        </button>
+        <button
+          data-key='w'
+          onClick={props.handleChange}
+          onKeyPress={props.handleKeyPress}
+        >
+          w
+        </button>
+        <button
+          data-key='e'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          e
+        </button>
+        <button
+          data-key='r'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          r
+        </button>
+        <button
+          data-key='t'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          t
+        </button>
+        <button
+          data-key='y'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          y
+        </button>
+        <button
+          data-key='u'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          u
+        </button>
+        <button
+          data-key='i'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          i
+        </button>
+        <button
+          data-key='o'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          o
+        </button>
+        <button
+          data-key='p'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          p
+        </button>
       </div>
       <div className='kb_row'>
         <div className='indent'></div>
-        <button data-key='a'>a</button>
-        <button data-key='s'>s</button>
-        <button data-key='d'>d</button>
-        <button data-key='f'>f</button>
-        <button data-key='g'>g</button>
-        <button data-key='h'>h</button>
-        <button data-key='j'>j</button>
-        <button data-key='k'>k</button>
-        <button data-key='l'>l</button>
+        <button
+          data-key='a'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          a
+        </button>
+        <button
+          data-key='s'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          s
+        </button>
+        <button
+          data-key='d'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          d
+        </button>
+        <button
+          data-key='f'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          f
+        </button>
+        <button
+          data-key='g'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          g
+        </button>
+        <button
+          data-key='h'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          h
+        </button>
+        <button
+          data-key='j'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          j
+        </button>
+        <button
+          data-key='k'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          k
+        </button>
+        <button
+          data-key='l'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          l
+        </button>
         <div className='indent'></div>
       </div>
       <div className='kb_row last_row'>
-        <button data-key='↵'>ENTER</button>
-        <button data-key='z'>z</button>
-        <button data-key='x'>x</button>
-        <button data-key='c'>c</button>
-        <button data-key='v'>v</button>
-        <button data-key='b'>b</button>
-        <button data-key='n'>n</button>
-        <button data-key='m'>m</button>
-        <button data-key='←'>
+        <button
+          data-key='↵'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          ENTER
+        </button>
+        <button
+          data-key='z'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          z
+        </button>
+        <button
+          data-key='x'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          x
+        </button>
+        <button
+          data-key='c'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          c
+        </button>
+        <button
+          data-key='v'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          v
+        </button>
+        <button
+          data-key='b'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          b
+        </button>
+        <button
+          data-key='n'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          n
+        </button>
+        <button
+          data-key='m'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          m
+        </button>
+        <button
+          data-key='Backspace'
+          onClick={props.handleChange}
+          onKeyDown={props.handleKeyPress}
+        >
+          {/* need handle delete function
+            // backspace keycode = 8
+            // enter keycode = 13
+          */}
           <div className='backspace'>BKSP</div>
         </button>
       </div>

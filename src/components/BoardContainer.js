@@ -3,31 +3,72 @@ import React from 'react'
 import BoardDisplay from './BoardDisplay'
 import Keypad from './Keypad'
 
-/*
-[
-  [b,o,a,r,d],
-  [b,o,a,r,d],
-  [b,o,a,r,d],
-  [b,o,a,r,d],
-  [b,o,a,r,d]
-]
-*/
-
+// console.log(Array(5).fill(0))
+// window.addEventListener('keypress', (e) => {
+//   console.log(e.key)
+// })
 class BoardContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      board: [[]],
       activeRow: 0,
-      targetWord: '',
+      targetWord: [],
+      openSpotInBoard: 0,
+      currWord: [],
+      rowNodes: {},
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyPress)
+
+    let nodes = document.querySelector('#activeRow')
+    this.setState((prevState) => {
+      prevState.rowNodes = nodes
+    })
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyPress)
+  }
+
+  handleChange(e) {
+    let temp = e.target.dataset.key
+    // console.log(temp, 'handlechange')
+    document.activeElement.blur()
+  }
+
+  handleDelete = (e) => {}
+
+  handleEnter = (e) => {}
+
+  getNextRow() {
+    let t = this.state.rowNodes.nextSibling
+    console.log(t)
+  }
+
+  handleKeyPress = (e) => {
+    // if (e.key === 'enter') {
+    //   console.log('enter press here! ')
+    // }
+
+    if (this.state.openSpotInBoard < 5) {
+      let rowNodes = this.state.rowNodes
+      rowNodes.childNodes[this.state.openSpotInBoard].innerHTML = e.key
+
+      this.setState((prevState, props) => ({
+        currWord: [...prevState.currWord, e.key],
+        openSpotInBoard: prevState.openSpotInBoard + 1,
+      }))
+    }
+  }
   render() {
     return (
       <div className='game_container'>
-        <BoardDisplay />
-        <Keypad />
+        <BoardDisplay activeRow={this.state.activeRow} />
+        <Keypad
+          handleChange={(e) => this.handleChange(e)}
+          handleKeyPress={(e) => this.handleKeyPress(e)}
+        />
       </div>
     )
   }
