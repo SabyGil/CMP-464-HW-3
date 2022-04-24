@@ -3,108 +3,166 @@ import React from 'react'
 import BoardDisplay from './BoardDisplay'
 import Keypad from './Keypad'
 
-// console.log(Array(5).fill(0))
-// window.addEventListener('keypress', (e) => {
-//   console.log(e.key)
-// })
+//
+const getDefaultBoard = () => [
+  ['', '', '', '', ''],
+  ['', '', '', '', ''],
+  ['', '', '', '', ''],
+  ['', '', '', '', ''],
+  ['', '', '', '', ''],
+  ['', '', '', '', ''],
+]
+
 class BoardContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      board: getDefaultBoard(),
       activeRow: 0,
-      targetWord: [],
       openSpotInBoard: 0,
+      targetWord: ['h', 'e', 'l', 'l', 'o'], // pre-filled word used to test app
       currWord: [],
-      rowNodes: {},
       cellContent: '',
+      gameOver: false, // to be used in future refactor
     }
   }
 
+  // Used to handle keyboard input
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress)
-
-    let nodes = document.querySelector('#activeRow')
-    this.setState((prevState) => {
-      prevState.rowNodes = nodes
-    })
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyPress)
   }
 
-  handleChange(e) {
-    let temp = e.target.dataset.key
-    console.log(temp, 'handlechange')
-    document.activeElement.blur()
+  // Used to handle screen keyboard input
+  handleOnScreenKB(e) {
+    let enteredKey = e.target.dataset.key
+    // console.log(enteredKey, 'handlechange')
+    this.handleKeyPress({ key: enteredKey })
+    // Blur is needed so that screen keys lose focus if transitioning to using keyboard
+    e.target.blur()
   }
 
-  handleDelete = () => {
+  // Handler for when the "delete" key is pressed
+  handleDelete = (e) => {
+    if (this.state.gameOver) {
+      return
+    }
+    e.target?.blur() // e.target.blur && e.target.blur()
+
     // missing event parameter
     if (this.state.openSpotInBoard > 0) {
-      // let lastRowGridInput =
-      //   this.state.rowNodes.childNodes[this.state.openSpotInBoard - 1].innerHTML
       let lastSpotIndex = this.state.openSpotInBoard - 1
-      console.log(this.state.openSpotInBoard + ' val of open spot')
-      console.log(this.state.rowNodes + ' the row nodes')
-
-      // this.state.rowNodes.childNodes[lastSpotIndex].innerHTML = ''
+      // console.log(this.state.openSpotInBoard + ' val of open spot')
+      // console.log(this.state.rowNodes + ' the row nodes')
 
       this.setState((prevState) => {
-        // currWord: [...prevState.currWord, e.key],
-        // rowNodes: {...prevState.rowNodes}
-        let { rowNodes } = prevState
-        rowNodes.childNodes[this.state.openSpotInBoard - 1].innerHTML = ''
+        const { board, activeRow } = this.state
+        board[activeRow][lastSpotIndex] = ''
+
         return {
-          currWord: prevState.currWord.filter(
-            (letter, i) => i === lastSpotIndex
-          ),
-          rowNodes: rowNodes,
+          currWord: prevState.currWord.filter((_, i) => i !== lastSpotIndex),
+          board: board,
           openSpotInBoard: lastSpotIndex,
         }
       })
-      console.log(this.state.openSpotInBoard)
-
-      // lastRowGridInput = ''
+      // console.log(this.state.openSpotInBoard)
     }
   }
 
-  handleEnter = (e) => {}
+  // Handler for when the "enter" key is pressed
+  handleEnter = (e) => {
+    if (this.state.gameOver) {
+      return
+    }
 
-  getNextRow() {
-    let t = this.state.rowNodes.nextSibling
-    console.log(t)
+    e.target?.blur() // e.target.blur && e.target.blur()
+
+    const target = this.state.targetWord.join('')
+    const word = this.state.currWord.join('')
+
+    if (word.length === 5) {
+      // Logic for last row
+      if (this.state.activeRow === 5) {
+        console.log('GAMEOVER')
+        this.setState({ gameOver: true })
+      }
+      this.setState({
+        activeRow: this.state.activeRow + 1,
+        openSpotInBoard: 0,
+        currWord: [],
+      })
+    } else {
+      console.log('not complete')
+    }
   }
 
   handleKeyPress = (e) => {
-    if (e.key === 'Backspace') {
-      this.handleDelete()
+    if (this.state.gameOver) {
+      return
     }
-    if (this.state.openSpotInBoard < 5 && e.key !== 'Backspace') {
-      let rowNodes = this.state.rowNodes
-      rowNodes.childNodes[this.state.openSpotInBoard].innerHTML = e.key
+    e.target?.blur()
 
-      this.setState((prevState, props) => ({
-        currWord: [...prevState.currWord, e.key], //used for target word validation later
-        // cellContent: e.key,
-        // cellContent: prevState.cellContent.concat(e.key),
-        openSpotInBoard: prevState.openSpotInBoard + 1,
-      }))
-      // rowNodes.childNodes[this.state.openSpotInBoard].innerHTML =
-      //   e.key
+    // Regex cheatsheet (summary: match single letter strings)
+    // ^ = beginning of string
+    // [] = character class
+    // $ = end of string
+    // i = a regex flag (case insensitive)
+    const patt = new RegExp('^[a-z]$', 'i')
+    const validLetter = e.key.search(patt) !== -1
+    console.debug('isValid:', validLetter, e.key)
 
-      // console.log(this.state.cellContent)
+    if (e.key === 'Backspace') {
+      this.handleDelete(e)
+    } else if (e.key === 'Enter') {
+      this.handleEnter(e)
+    } else if (validLetter && this.state.openSpotInBoard < 5) {
+      this.addLetter(e.key)
     }
   }
+
+  //
+  addLetter(letter) {
+    const { board, activeRow, openSpotInBoard } = this.state
+    board[activeRow][openSpotInBoard] = letter
+
+    this.setState((prevState, props) => ({
+      currWord: [...prevState.currWord, letter],
+      board: board,
+      openSpotInBoard: prevState.openSpotInBoard + 1,
+    }))
+  }
+
+  getColor(x, y) {
+    const target = this.state.targetWord.join('')
+    const word = this.state.board[x].join('')
+
+    const inPosition = word[y] === target[y]
+    const inTarget = target.includes(word[y])
+    const inPrevRow = x < this.state.activeRow
+
+    if (inPosition && inPrevRow) {
+      return 'green'
+    } else if (inTarget && inPrevRow) {
+      return 'yellow'
+    }
+
+    return ''
+  }
+
   render() {
-    // console.log(this.state)
     return (
       <div className='game_container'>
-        <BoardDisplay activeRow={this.state.activeRow} />
+        <BoardDisplay
+          activeRow={this.state.activeRow}
+          grid={this.state.board}
+          getColor={(x, y) => this.getColor(x, y)}
+        />
         <Keypad
-          handleChange={(e) => this.handleChange(e)}
-          handleKeyPress={(e) => this.handleKeyPress(e)}
-          handleDelete={() => this.handleDelete()}
-          // handleDelete={this.handleDelete()}
+          handleChange={(e) => this.handleOnScreenKB(e)}
+          handleDelete={(e) => this.handleDelete(e)}
+          handleEnter={(e) => this.handleEnter(e)}
         />
       </div>
     )
@@ -112,15 +170,12 @@ class BoardContainer extends React.Component {
 }
 
 /*
+Notes used while developing:
+
 1. generate the board. each row has 5 boxes. there are 6 rows
 2. board will be a 2 dimensional array. A activeRow variable
 will keep track of which row the user is on and which to check when the user
 presses enter
-
-* on app load, store target guess word
-* have an array of words that will function as the word db
-
-https://stackoverflow.com/questions/19544452/remove-last-item-from-array#:~:text=To%20remove%20the%20last%20n,array%20containing%20the%20removed%20elements.
 */
 
 export default BoardContainer
