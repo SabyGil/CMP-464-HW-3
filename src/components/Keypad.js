@@ -205,15 +205,16 @@ const Keypad = (props) => {
         </button>
         <button
           data-key='Backspace'
-          onClick={props.handleChange}
-          onKeyDown={props.handleKeyPress}
+          onClick={props.handeDelete}
+          onKeyDown={props.handeDelete}
         >
-          {/* need handle delete function
+          BKSP
+        </button>
+
+        {/* need handle delete function
             // backspace keycode = 8
             // enter keycode = 13
           */}
-          <div className='backspace'>BKSP</div>
-        </button>
       </div>
     </div>
   )
