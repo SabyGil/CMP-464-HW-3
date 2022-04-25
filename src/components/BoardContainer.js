@@ -135,16 +135,18 @@ class BoardContainer extends React.Component {
   }
 
   getColor(x, y) {
-    const target = this.state.targetWord.join('')
-    const word = this.state.board[x].join('')
+    const targetWord = this.state.targetWord.join('')
+    const wordInputByUser = this.state.board[x].join('')
 
-    const inPosition = word[y] === target[y]
-    const inTarget = target.includes(word[y])
-    const inPrevRow = x < this.state.activeRow
+    const isLetterPositionCorrect = wordInputByUser[y] === targetWord[y]
+    const isLetterInWord = targetWord.includes(wordInputByUser[y])
 
-    if (inPosition && inPrevRow) {
+    // if user has hit enter, the index of the current row (x) will be smaller than the active row
+    const hasUserMovedToTheNextRow = x < this.state.activeRow
+
+    if (isLetterPositionCorrect && hasUserMovedToTheNextRow) {
       return 'green'
-    } else if (inTarget && inPrevRow) {
+    } else if (isLetterInWord && hasUserMovedToTheNextRow) {
       return 'yellow'
     }
 
